@@ -22,11 +22,11 @@ import { UpdateContentDto } from './dto/update-content.dto';
 import { Content } from './entities/content.entity';
 
 @ApiTags('Contents')
-@Controller('content')
+@Controller('api/content')
 export class ContentController {
   constructor(private readonly contentService: ContentService) {}
 
-  @Post()
+  @Post('create')
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
   @ApiConsumes('multipart/form-data')
@@ -42,17 +42,17 @@ export class ContentController {
     return this.contentService.create(createContentDto);
   }
 
-  @Get()
+  @Get('getAll')
   findAll(): Promise<Content[]> {
     return this.contentService.findAll();
   }
 
-  @Get(':id')
+  @Get('getOne/:id')
   findOne(@Param('id') id: number): Promise<Content> {
     return this.contentService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch('update/:id')
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
   @ApiConsumes('multipart/form-data')
@@ -69,7 +69,7 @@ export class ContentController {
     return this.contentService.update(+id, updateContentDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
   remove(@Param('id') id: number, @Request() req): Promise<Content> {

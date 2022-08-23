@@ -22,11 +22,11 @@ import { UpdateCarouselDto } from './dto/update-carousel.dto';
 import { Carousel } from './entities/carousel.entity';
 
 @ApiTags('Carousels')
-@Controller('carousel')
+@Controller('api/carousel')
 export class CarouselController {
   constructor(private readonly carouselService: CarouselService) {}
 
-  @Post()
+  @Post('create')
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
   @ApiConsumes('multipart/form-data')
@@ -43,12 +43,12 @@ export class CarouselController {
     return this.carouselService.create(createCarouselDto);
   }
 
-  @Get()
+  @Get('getAll')
   findAll(): Promise<Carousel[]> {
     return this.carouselService.findAll();
   }
 
-  @Get(':id')
+  @Get('getOne/:id')
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
   findOne(@Param('id') id: number, @Request() req): Promise<Carousel> {
@@ -56,7 +56,7 @@ export class CarouselController {
     return this.carouselService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch('update/:id')
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
   @ApiConsumes('multipart/form-data')
@@ -73,7 +73,7 @@ export class CarouselController {
     return this.carouselService.update(+id, updateCarouselDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
   remove(@Param('id') id: number, @Request() req): Promise<Carousel> {

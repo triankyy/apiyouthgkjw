@@ -18,7 +18,7 @@ import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
 @ApiTags('Users')
-@Controller('user')
+@Controller('api/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -29,14 +29,14 @@ export class UserController {
 
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
-  @Get('getAllUsers')
+  @Get('getAll')
   findAll(): Promise<User[]> {
     return this.userService.findAll();
   }
 
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
-  @Get(':id')
+  @Get('getOne/:id')
   findOne(@Param('id') id: number, @Request() req): Promise<User> {
     if (req.user.id != id) throw new ForbiddenException();
     return this.userService.findOne(+id);
@@ -44,7 +44,7 @@ export class UserController {
 
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
-  @Patch(':id')
+  @Patch('update/:id')
   update(
     @Param('id') id: number,
     @Body() updateUserDto: UpdateUserDto,
@@ -56,7 +56,7 @@ export class UserController {
 
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
-  @Delete(':id')
+  @Delete('delete/:id')
   remove(@Param() id: UserIdDto, @Request() req): Promise<User> {
     if (req.user.level != 2) throw new ForbiddenException();
     return this.userService.remove(id.id);
