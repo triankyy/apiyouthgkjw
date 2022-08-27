@@ -15,10 +15,11 @@ export class CarouselService {
     @InjectRepository(Carousel)
     private carouselRepository: Repository<Carousel>,
   ) {}
-  public async create(createCarouselDto: CreateCarouselDto): Promise<Carousel> {
+  public async create(createCarouselDto: CreateCarouselDto) {
     const carousel: Carousel = await this.carouselRepository.save(
       createCarouselDto,
     );
+    console.log(carousel);
     if (!carousel) throw new BadRequestException();
     return carousel;
   }

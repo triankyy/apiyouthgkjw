@@ -36,8 +36,7 @@ export class CarouselController {
     @InjectUser() createCarouselDto: CreateCarouselDto,
     @UploadedFile() image: Express.Multer.File,
     @Request() req,
-  ): Promise<Carousel> {
-    console.log(req.user);
+  ) {
     if (req.user.level != 2) throw new ForbiddenException();
     createCarouselDto.image = image.filename;
     return this.carouselService.create(createCarouselDto);
