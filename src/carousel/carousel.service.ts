@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CreateCarouselDto } from './dto/create-carousel.dto';
 import { UpdateCarouselDto } from './dto/update-carousel.dto';
 import { Carousel } from './entities/carousel.entity';
@@ -55,10 +55,18 @@ export class CarouselService {
   }
 
   public async remove(id: number): Promise<Carousel> {
-    const carousel: Carousel = await this.carouselRepository.findOneByOrFail({
+    const carousel: Carousel = await this.carouselRepository.findOneBy({
       id,
     });
     if (!carousel) throw new NotFoundException();
+    return this.carouselRepository.remove(carousel);
+  }
+
+  public async removeMany(ids: number[]): Promise<Carousel[]> {
+    const carousel: Carousel[] = await this.carouselRepository.findBy({
+      id: In(ids),
+    });
+    if (!carousel) throw new BadRequestException();
     return this.carouselRepository.remove(carousel);
   }
 }

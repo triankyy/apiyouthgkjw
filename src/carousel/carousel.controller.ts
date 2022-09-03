@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Delete,
   ForbiddenException,
@@ -78,5 +79,13 @@ export class CarouselController {
   remove(@Param('id') id: number, @Request() req): Promise<Carousel> {
     if (req.user.level != 2) throw new ForbiddenException();
     return this.carouselService.remove(+id);
+  }
+
+  @Delete('deleteMany')
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard)
+  removeMany(@Body('ids') ids: number[], @Request() req): Promise<Carousel[]> {
+    if (req.user.level != 2) throw new ForbiddenException();
+    return this.carouselService.removeMany(ids);
   }
 }

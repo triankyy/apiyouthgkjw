@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Response as ResponseType, Request as RequestType } from 'express';
+import { User } from 'src/user/entities/user.entity';
 import { AuthDto } from './auth.dto';
 import { AuthService } from './auth.service';
 import { JwtGuard } from './jwt.guard';
@@ -30,19 +31,19 @@ export class AuthController {
   public async login(
     @Body() authDto: AuthDto,
     @Response({ passthrough: true }) res: ResponseType,
-  ): Promise<Record<string, string>> {
-    const { id } = await this.authService.checkUser(
+  ): Promise<User> {
+    const user = await this.authService.checkUser(
       authDto.email,
       authDto.password,
     );
-    const token = this.authService.generateToken({ id });
+    const token = this.authService.generateToken({ id: user.id });
     const d: number = 1 * 24 * 60 * 60 * 1000;
     res.cookie('token', token.token, {
       expires: new Date(new Date().getTime() + d),
       sameSite: 'strict',
       httpOnly: true,
     });
-    return token;
+    return user;
   }
 
   @ApiBearerAuth()

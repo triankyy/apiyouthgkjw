@@ -28,7 +28,7 @@ export class UserService {
   }
 
   public async findOne(id: number): Promise<User> {
-    const user: User = await this.userRepository.findOneByOrFail({ id });
+    const user: User = await this.userRepository.findOneBy({ id });
     if (!user) throw new BadRequestException();
     return user;
   }
@@ -49,7 +49,7 @@ export class UserService {
   }
 
   public async findEmail(email: string): Promise<User> {
-    const user: User = await this.userRepository.findOneByOrFail({ email });
+    const user: User = await this.userRepository.findOneBy({ email });
     if (!user) throw new BadRequestException();
     return user;
   }

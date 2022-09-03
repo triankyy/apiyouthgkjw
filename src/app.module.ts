@@ -12,6 +12,7 @@ import { UserModule } from './user/user.module';
 import { typeOrmAsyncConfig } from './utils/configs/typeorm.config';
 import { ExistValidator } from './utils/validators/exist.validator';
 import { UniqueValidator } from './utils/validators/unique.validator';
+import { YoutubeModule } from './youtube/youtube.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { UniqueValidator } from './utils/validators/unique.validator';
     AuthModule,
     ContentModule,
     CarouselModule,
+    YoutubeModule,
   ],
   controllers: [AppController],
   providers: [AppService, UniqueValidator, ExistValidator],
