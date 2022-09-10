@@ -5,14 +5,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { CarouselModule } from './carousel/carousel.module';
-import { ContentModule } from './content/content.module';
-import { UserModule } from './user/user.module';
-import { typeOrmAsyncConfig } from './utils/configs/typeorm.config';
-import { ExistValidator } from './utils/validators/exist.validator';
-import { UniqueValidator } from './utils/validators/unique.validator';
-import { YoutubeModule } from './youtube/youtube.module';
+import { AuthModule } from './http/auth/auth.module';
+import { CarouselModule } from './http/carousel/carousel.module';
+import { ContentModule } from './http/content/content.module';
+import { UserModule } from './http/user/user.module';
+import { typeOrmAsyncConfig } from './configs/typeorm.config';
+import { ExistValidator } from './validators/exist.validator';
+import { UniqueValidator } from './validators/unique.validator';
+import { YoutubeModule } from './http/youtube/youtube.module';
 
 @Module({
   imports: [
