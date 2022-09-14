@@ -3,7 +3,7 @@ import { extname } from 'path';
 
 export function storage(dest: string): multer.StorageEngine {
   return diskStorage({
-    destination: `./public/${dest}`,
+    destination: `./public/staitc/${dest}`,
     filename: (
       req: any,
       file: Express.Multer.File,
