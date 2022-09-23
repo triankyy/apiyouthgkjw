@@ -43,4 +43,5 @@ lerna-debug.log*
 .env
 
 #Assets
+/public
 # /assets/contents/

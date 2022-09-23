@@ -10,7 +10,7 @@ import {
 import { useContainer } from 'class-validator';
 import * as cookieParser from 'cookie-parser';
 import { join } from 'path';
-import { AppModule } from './app.module';
+import { AppModule } from './api/app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -45,4 +45,5 @@ async function bootstrap() {
   await app.listen(process.env.PORT, '0.0.0.0');
   Logger.log(process.env.PORT, 'Port');
 }
+
 bootstrap();

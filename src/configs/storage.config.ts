@@ -3,7 +3,7 @@ import { extname } from 'path';
 
 export function storage(dest: string): multer.StorageEngine {
   return diskStorage({
-    destination: `./public/staitc/${dest}`,
+    destination: `./public/static/${dest}`, //file destination
     filename: (
       req: any,
       file: Express.Multer.File,
@@ -12,7 +12,8 @@ export function storage(dest: string): multer.StorageEngine {
   });
 }
 
+//generate file name
 function generateFileName(file: Express.Multer.File, id: any): string {
-  const fileName: string = [id, Date.now()].join('-');
+  const fileName: string = [id, Date.now()].join('-'); //penggabungan id dan tanggal
   return `${fileName}${extname(file.originalname)}`;
 }
