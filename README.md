@@ -109,7 +109,7 @@ Nest is [MIT licensed](LICENSE).
   GET | http://127.0.0.1:8000/api/auth/logout
   ```
   #
-## User
+## Users
 - **Create User**
   ```
   POST | http://127.0.0.1:8000/api/user/create
@@ -164,7 +164,7 @@ Nest is [MIT licensed](LICENSE).
   }
   ```
   #
-## Role
+## Roles
 - **Create Role**
   ```
   POST | http://127.0.0.1:8000/api/role/create
