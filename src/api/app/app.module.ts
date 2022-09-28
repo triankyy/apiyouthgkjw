@@ -8,7 +8,7 @@ import { ExistValidator } from 'src/validators/exist.validator';
 import { UniqueValidator } from 'src/validators/unique.validator';
 import { AuthModule } from '../auth/auth.module';
 import { CarouselModule } from '../carousel/carousel.module';
-import { ContentModule } from '../content/content.module';
+import { JadwalPelayanModule } from '../ibadah/jadwal_pelayan.module';
 import { UserModule } from '../user/user.module';
 import { YoutubeModule } from '../youtube/youtube.module';
 import { AppController } from './app.controller';
@@ -24,9 +24,9 @@ import { AppService } from './app.service';
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     UserModule,
     AuthModule,
-    ContentModule,
     CarouselModule,
     YoutubeModule,
+    JadwalPelayanModule,
   ],
   controllers: [AppController],
   providers: [AppService, UniqueValidator, ExistValidator],

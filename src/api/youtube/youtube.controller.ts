@@ -37,7 +37,7 @@ export class YoutubeController {
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
   findOne(@Param('id') id: number, @Request() req) {
-    return this.youtubeService.findOne(+id);
+    return this.youtubeService.findOne(id);
   }
 
   @Patch('update/:id')
@@ -48,13 +48,13 @@ export class YoutubeController {
     @InjectUser() updateYoutubeDto: UpdateYoutubeDto,
     @Request() req,
   ) {
-    return this.youtubeService.update(+id, updateYoutubeDto);
+    return this.youtubeService.update(id, updateYoutubeDto);
   }
 
   @Delete('delete/:id')
   @ApiBearerAuth()
   @UseGuards(JwtGuard)
   remove(@Param('id') id: number, @Request() req) {
-    return this.youtubeService.remove(+id);
+    return this.youtubeService.remove(id);
   }
 }

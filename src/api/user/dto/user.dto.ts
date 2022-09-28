@@ -1,4 +1,4 @@
-import { ApiProperty, OmitType, PartialType } from '@nestjs/swagger';
+import { ApiProperty, OmitType } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsArray,
@@ -22,6 +22,7 @@ export class UserDto {
   @IsString()
   name: string;
 
+  @ApiProperty()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => Role)
