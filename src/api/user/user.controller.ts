@@ -46,7 +46,7 @@ export class UserController {
   @UseGuards(JwtGuard)
   @Get('getOne/:id')
   public async findOne(@Param('id') id: number): Promise<User> {
-    return this.userService.findOne(+id);
+    return this.userService.findOne(id);
   }
 
   /**
@@ -59,7 +59,7 @@ export class UserController {
     @Param('id') id: number,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    return this.userService.update(+id, updateUserDto);
+    return this.userService.update(id, updateUserDto);
   }
 
   /**
@@ -68,7 +68,7 @@ export class UserController {
   @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
   @Delete('delete/:id')
-  public async remove(@Param() id: number): Promise<User> {
+  public async remove(@Param('id') id: number): Promise<User> {
     return this.userService.remove(id);
   }
 
@@ -78,7 +78,7 @@ export class UserController {
   @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
   @Delete('deleteMany')
-  public async removeMany(@Body() ids: number[]): Promise<User[]> {
+  public async removeMany(@Body('ids') ids: number[]): Promise<User[]> {
     return this.userService.removeMany(ids);
   }
 }

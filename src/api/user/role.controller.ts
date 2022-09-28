@@ -46,7 +46,7 @@ export class RoleController {
    */
   @Get('getOne/:id')
   public async findOne(@Param('id') id: number): Promise<Role> {
-    return this.roleService.findOne(+id);
+    return this.roleService.findOne(id);
   }
 
   /**
@@ -59,7 +59,7 @@ export class RoleController {
     @Param('id') id: number,
     @Body() updateUserRoleDto: UpdateUserRoleDto,
   ): Promise<UpdateUserRoleDto> {
-    return this.roleService.update(+id, updateUserRoleDto);
+    return this.roleService.update(id, updateUserRoleDto);
   }
 
   /**
@@ -68,7 +68,7 @@ export class RoleController {
   @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
   @Delete('delete/:id')
-  public async remove(@Param() id: number): Promise<Role> {
+  public async remove(@Param('id') id: number): Promise<Role> {
     return this.roleService.remove(id);
   }
 
@@ -78,7 +78,7 @@ export class RoleController {
   @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
   @Delete('deleteMany')
-  public async removeMany(@Body() ids: number[]): Promise<Role[]> {
+  public async removeMany(@Body('ids') ids: number[]): Promise<Role[]> {
     return this.roleService.removeMany(ids);
   }
 }

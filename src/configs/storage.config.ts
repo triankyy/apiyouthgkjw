@@ -13,7 +13,7 @@ export function storage(dest: string): multer.StorageEngine {
 }
 
 //generate file name
-function generateFileName(file: Express.Multer.File, id: any): string {
+function generateFileName(file: Express.Multer.File, id: number): string {
   const fileName: string = [id, Date.now()].join('-'); //penggabungan id dan tanggal
   return `${fileName}${extname(file.originalname)}`;
 }

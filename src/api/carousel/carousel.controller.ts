@@ -53,7 +53,7 @@ export class CarouselController {
   //get one data carousel
   @Get('getOne/:id')
   findOne(@Param('id') id: number): Promise<Carousel> {
-    return this.carouselService.findOne(+id);
+    return this.carouselService.findOne(id);
   }
 
   //update data carousel
@@ -69,7 +69,7 @@ export class CarouselController {
     @UploadedFile() image: Express.Multer.File,
   ): Promise<Carousel> {
     if (image) updateCarouselDto.image = image.filename;
-    return this.carouselService.update(+id, updateCarouselDto);
+    return this.carouselService.update(id, updateCarouselDto);
   }
 
   //hapus data carousel
@@ -77,7 +77,7 @@ export class CarouselController {
   @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
   remove(@Param('id') id: number): Promise<Carousel> {
-    return this.carouselService.remove(+id);
+    return this.carouselService.remove(id);
   }
 
   //hapus beberapa carousel
