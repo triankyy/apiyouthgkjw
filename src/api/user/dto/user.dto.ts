@@ -3,6 +3,8 @@ import { Type } from 'class-transformer';
 import {
   IsArray,
   IsEmail,
+  IsNumber,
+  IsObject,
   IsOptional,
   IsString,
   ValidateNested,
@@ -11,6 +13,7 @@ import { IsExist } from '../../../validators/exist.validator';
 import { IsUnique } from '../../../validators/unique.validator';
 import { Role } from '../entities/role.entity';
 import { User } from '../entities/user.entity';
+import { Wilayah } from '../entities/wilayah.entity';
 
 export class UserDto {
   // @ApiProperty()
@@ -29,6 +32,11 @@ export class UserDto {
   roles: Role[];
 
   @ApiProperty()
+  @IsObject()
+  @Type(() => Wilayah)
+  wilayah!: Wilayah;
+
+  @ApiProperty()
   @IsUnique([User, 'email'])
   @IsOptional()
   @IsEmail()
@@ -42,14 +50,21 @@ export class UserDto {
 
 //OmitType = delete salah satu dari dto
 //PickType = sebaliknya dari OmitType
-export class CreateUserDto extends OmitType(UserDto, ['id', 'roles']) {
+
+export class UpdateUserDto extends OmitType(UserDto, ['roles', 'wilayah']) {
   @IsArray()
   roles: number[];
+  
+  @IsNumber()
+  wilayah!: number;
 }
 
-export class UpdateUserDto extends OmitType(UserDto, ['roles']) {
+export class CreateUserDto extends OmitType(UpdateUserDto, ['id']) {
   @IsArray()
   roles: number[];
+
+  @IsNumber()
+  wilayah!: number;
 }
 
 export class UserIdDto {

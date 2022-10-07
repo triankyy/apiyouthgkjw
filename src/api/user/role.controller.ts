@@ -23,8 +23,7 @@ export class RoleController {
   /**
    * create
    */
-  @ApiBearerAuth()
-  @UseGuards(JwtGuard, RoleGuard)
+  // @UseGuards(JwtGuard, RoleGuard)
   @ApiBearerAuth()
   @Post('create')
   public async create(
@@ -53,7 +52,7 @@ export class RoleController {
    * update
    */
   @ApiBearerAuth()
-  @UseGuards(JwtGuard, RoleGuard)
+  // @UseGuards(JwtGuard, RoleGuard)
   @Patch('update/:id')
   public async update(
     @Param('id') id: number,

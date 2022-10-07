@@ -5,12 +5,14 @@ import { In, Repository } from 'typeorm';
 import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
 import { Role } from './entities/role.entity';
 import { User } from './entities/user.entity';
+import { Wilayah } from './entities/wilayah.entity';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User) private userRepository: Repository<User>,
-    @InjectRepository(Role) private roleRepository: Repository<Role>,
+    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectRepository(Role) private readonly roleRepository: Repository<Role>,
+    @InjectRepository(Wilayah) private readonly wilayahRepository: Repository<Wilayah>
   ) {}
 
   /**
@@ -24,12 +26,13 @@ export class UserService {
         createUserDto.password = this.hashPassword(createUserDto.password);
       }
       //get data roles untuk ditambahkan ke user
-      const roles = await this.roleRepository
-        .createQueryBuilder('role')
-        .where('role.id IN (:ids)', { ids: createUserDto.roles })
-        .getMany();
+      const roles = await this.roleRepository.findBy({id: In(createUserDto.roles)});
+
+      //get data wilayah untuk ditambahkan ke user
+      const wilayah: Wilayah = await this.wilayahRepository.findOneBy({id: createUserDto.wilayah})
+
       //simpan data user ke database beserta relasi tabel role
-      return await this.userRepository.save({ ...createUserDto, roles }); //TODO: add user roles as array :)
+      return await this.userRepository.save({ ...createUserDto, roles, wilayah }); //TODO: add user roles as array :)
     } catch (error) {
       throw new BadRequestException({
         message: 'Terjadi kesalahan saat menyimpan data!',
@@ -81,7 +84,11 @@ export class UserService {
       const roles = await this.roleRepository.findBy({
         id: In(updateUserDto.roles),
       });
-      return await this.userRepository.save({ ...updateUserDto, roles }); //simpan data ke database
+
+      //get data wilayah untuk update data user
+      const wilayah: Wilayah = await this.wilayahRepository.findOneBy({id: updateUserDto.wilayah});
+
+      return await this.userRepository.save({ ...updateUserDto, roles, wilayah }); //simpan data ke database
     } catch (error) {
       throw new BadRequestException({
         message: 'Terjadi kesalahan saat menyimpan data!',
