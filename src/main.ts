@@ -24,7 +24,7 @@ async function bootstrap() {
     }),
   );
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
-  await app.listen(process.env.PORT, '0.0.0.0');
+  await app.listen(process.env.PORT || 5000, '0.0.0.0');
   Logger.log(process.env.PORT, 'Port');
 }
 

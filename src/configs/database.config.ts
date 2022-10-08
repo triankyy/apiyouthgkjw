@@ -4,6 +4,9 @@ import { DataSourceOptions } from 'typeorm';
 const databaseConfig: DataSourceOptions = {
   type: 'postgres',
   url: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  },
   // host: process.env.PG_HOST,
   // port: Number(process.env.PG_PORT),
   // username: process.env.PG_USERNAME,
