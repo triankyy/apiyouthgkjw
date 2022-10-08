@@ -2,9 +2,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateYoutubeDto } from './dto/create-youtube.dto';
-import { UpdateYoutubeDto } from './dto/update-youtube.dto';
-import { Youtube } from './entities/youtube.entity';
+import { CreateYoutubeDto, UpdateYoutubeDto } from './youtube.dto';
+import { Youtube } from './youtube.entity';
 const yts = require('yt-search');
 
 @Injectable()

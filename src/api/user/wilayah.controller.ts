@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { WilayahService } from './wilayah.service';
 import { CreateWilayahDto, UpdateWilayahDto } from './dto/wilayah.dto';
 

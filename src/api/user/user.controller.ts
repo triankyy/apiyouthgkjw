@@ -8,14 +8,12 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from '../auth/jwt.guard';
 import { RoleGuard } from '../auth/role.guard';
 import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
-@ApiTags('Users')
 @Controller('api/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -41,7 +39,6 @@ export class UserController {
   /**
    * get data user berdasarkan id
    */
-  @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
   @UseGuards(JwtGuard)
   @Get('getOne/:id')
@@ -52,7 +49,6 @@ export class UserController {
   /**
    * update data user
    */
-  @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
   @Patch('update/:id')
   public async update(
@@ -65,7 +61,6 @@ export class UserController {
   /**
    * hapus data user
    */
-  @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
   @Delete('delete/:id')
   public async remove(@Param('id') id: number): Promise<User> {
@@ -75,7 +70,6 @@ export class UserController {
   /**
    * hapus data user
    */
-  @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
   @Delete('deleteMany')
   public async removeMany(@Body('ids') ids: number[]): Promise<User[]> {

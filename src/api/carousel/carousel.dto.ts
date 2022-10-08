@@ -1,19 +1,16 @@
-import { ApiProperty, OmitType, PickType } from '@nestjs/swagger';
 import { IsObject, IsOptional, IsString } from 'class-validator';
-import { UserDto } from '../../user/dto/user.dto';
-import { IsExist } from '../../../validators/exist.validator';
-import { Carousel } from '../entities/carousel.entity';
+import { UserDto } from '../user/dto/user.dto';
+import { IsExist } from '../../validators/exist.validator';
+import { Carousel } from './carousel.entity';
+import { OmitType, PartialType, PickType } from '@nestjs/mapped-types';
 
 export class CarouselDto {
-  @ApiProperty()
   @IsExist([Carousel, 'id'])
   id: number;
 
-  @ApiProperty({ format: 'binary', required: true })
   @IsOptional()
   image?: string;
 
-  @ApiProperty()
   @IsString()
   label: string;
 
@@ -23,3 +20,4 @@ export class CarouselDto {
 
 export class CreateCarouselDto extends OmitType(CarouselDto, ['id']) {}
 export class CarouselIdDto extends PickType(CarouselDto, ['id']) {}
+export class UpdateCarouselDto extends PartialType(CarouselDto) {}

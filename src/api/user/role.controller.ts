@@ -9,13 +9,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { CreateUserRoleDto, UpdateUserRoleDto } from './dto/role.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from '../auth/jwt.guard';
 import { RoleGuard } from '../auth/role.guard';
 import { Role } from './entities/role.entity';
 import { RoleService } from './role.service';
 
-@ApiTags('User Roles')
 @Controller('api/user/role')
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
@@ -24,7 +22,6 @@ export class RoleController {
    * create
    */
   // @UseGuards(JwtGuard, RoleGuard)
-  @ApiBearerAuth()
   @Post('create')
   public async create(
     @Body() createUserRoleDto: CreateUserRoleDto,
@@ -51,7 +48,6 @@ export class RoleController {
   /**
    * update
    */
-  @ApiBearerAuth()
   // @UseGuards(JwtGuard, RoleGuard)
   @Patch('update/:id')
   public async update(
@@ -64,7 +60,6 @@ export class RoleController {
   /**
    * remove
    */
-  @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
   @Delete('delete/:id')
   public async remove(@Param('id') id: number): Promise<Role> {
@@ -74,7 +69,6 @@ export class RoleController {
   /**
    * removeMany
    */
-  @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
   @Delete('deleteMany')
   public async removeMany(@Body('ids') ids: number[]): Promise<Role[]> {

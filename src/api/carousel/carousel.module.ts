@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { CarouselService } from './carousel.service';
 import { CarouselController } from './carousel.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Carousel } from './entities/carousel.entity';
+import { Carousel } from './carousel.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Carousel])],

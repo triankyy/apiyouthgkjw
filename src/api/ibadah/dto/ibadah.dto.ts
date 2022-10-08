@@ -1,4 +1,4 @@
-import { OmitType, PartialType } from '@nestjs/swagger';
+import { OmitType, PartialType } from '@nestjs/mapped-types';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { IsExist } from 'src/validators/exist.validator';
 import { Ibadah } from '../entities/ibadah.entity';

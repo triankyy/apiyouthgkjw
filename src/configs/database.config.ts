@@ -2,15 +2,16 @@ import 'dotenv/config';
 import { DataSourceOptions } from 'typeorm';
 
 const databaseConfig: DataSourceOptions = {
-  type: 'mysql',
-  host: process.env.MYSQL_HOST,
-  port: Number(process.env.MYSQL_PORT),
-  username: process.env.MYSQL_USERNAME,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE,
+  type: 'postgres',
+  host: process.env.PG_HOST,
+  port: Number(process.env.PG_PORT),
+  username: process.env.PG_USERNAME,
+  password: process.env.PG_PASSWORD,
+  database: process.env.PG_DATABASE,
   migrationsTableName: 'migrations',
   entities: ['dist/api/**/*.entity.js'],
   migrations: ['dist/database/migrations/*.js'],
+  logging: true,
   synchronize: true,
 };
 

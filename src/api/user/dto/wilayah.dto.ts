@@ -1,16 +1,15 @@
-import { ApiProperty, OmitType, PartialType, PickType } from "@nestjs/swagger";
-import { IsOptional, IsString } from "class-validator";
-import { IsExist } from "src/validators/exist.validator";
-import { Wilayah } from "../entities/wilayah.entity";
+import { OmitType, PartialType, PickType } from '@nestjs/mapped-types';
+import { IsOptional, IsString } from 'class-validator';
+import { IsExist } from 'src/validators/exist.validator';
+import { Wilayah } from '../entities/wilayah.entity';
 
 export class WilayahDto {
-      @IsOptional()
-      @IsExist([Wilayah, 'id'])
-      id?: number;
+  @IsOptional()
+  @IsExist([Wilayah, 'id'])
+  id?: number;
 
-      @ApiProperty()
-      @IsString()
-      name: string;
+  @IsString()
+  name: string;
 }
 
 export class CreateWilayahDto extends OmitType(WilayahDto, ['id']) {}

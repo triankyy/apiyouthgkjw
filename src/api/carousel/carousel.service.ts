@@ -5,9 +5,8 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
-import { CreateCarouselDto } from './dto/create-carousel.dto';
-import { UpdateCarouselDto } from './dto/update-carousel.dto';
-import { Carousel } from './entities/carousel.entity';
+import { CreateCarouselDto, UpdateCarouselDto } from './carousel.dto';
+import { Carousel } from './carousel.entity';
 import * as fs from 'fs';
 
 @Injectable()

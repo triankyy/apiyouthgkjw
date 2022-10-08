@@ -1,4 +1,4 @@
-import { ApiProperty, OmitType } from '@nestjs/swagger';
+import { OmitType } from '@nestjs/mapped-types';
 import { Type } from 'class-transformer';
 import {
   IsArray,
@@ -21,28 +21,23 @@ export class UserDto {
   @IsExist([User, 'id'])
   id?: number;
 
-  @ApiProperty({ default: 'Your name', required: true })
   @IsString()
   name: string;
 
-  @ApiProperty()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => Role)
   roles: Role[];
 
-  @ApiProperty()
   @IsObject()
   @Type(() => Wilayah)
   wilayah!: Wilayah;
 
-  @ApiProperty()
   @IsUnique([User, 'email'])
   @IsOptional()
   @IsEmail()
   email!: string;
 
-  @ApiProperty()
   @IsString()
   @IsOptional()
   password!: string;
@@ -54,7 +49,7 @@ export class UserDto {
 export class UpdateUserDto extends OmitType(UserDto, ['roles', 'wilayah']) {
   @IsArray()
   roles: number[];
-  
+
   @IsNumber()
   wilayah!: number;
 }
@@ -68,7 +63,6 @@ export class CreateUserDto extends OmitType(UpdateUserDto, ['id']) {
 }
 
 export class UserIdDto {
-  @ApiProperty()
   @IsOptional()
   @IsExist([User, 'id'])
   id?: number;

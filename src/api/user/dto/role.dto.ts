@@ -1,4 +1,4 @@
-import { ApiProperty, OmitType, PartialType, PickType } from '@nestjs/swagger';
+import { OmitType, PartialType, PickType } from '@nestjs/mapped-types';
 import { IsOptional, IsString } from 'class-validator';
 import { IsExist } from 'src/validators/exist.validator';
 import { Role } from '../entities/role.entity';
@@ -8,7 +8,6 @@ export class UserRoleDto {
   @IsExist([Role, 'id'])
   id?: number;
 
-  @ApiProperty()
   @IsString()
   name: string;
 }

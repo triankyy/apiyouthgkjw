@@ -7,21 +7,18 @@ import {
   Response,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Response as ResponseType, Request as RequestType } from 'express';
 import { User } from '../user/entities/user.entity';
 import { AuthDto } from './auth.dto';
 import { AuthService } from './auth.service';
 import { JwtGuard } from './jwt.guard';
 
-@ApiTags('Auth')
 @Controller('api/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   //cek user
   @Get()
-  @ApiBearerAuth()
   @UseGuards(JwtGuard)
   checkUser(@Request() req: RequestType): Express.User {
     return req.user;
@@ -52,7 +49,6 @@ export class AuthController {
   }
 
   //logout
-  @ApiBearerAuth()
   @UseGuards(JwtGuard)
   @Get('logout')
   public logout(
