@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -24,7 +25,7 @@ export class CarouselService {
       return await this.carouselRepository.save(createCarouselDto); //simpan ke database
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!',
+        message: [error ?? 'Terjadi kesalahan saat menyimpan data!'],
       });
     }
   }
@@ -43,7 +44,7 @@ export class CarouselService {
       });
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat mengambil data!',
+        message: [error ?? 'Terjadi kesalahan saat mengambil data!'],
       });
     }
   }
@@ -61,7 +62,7 @@ export class CarouselService {
         .getOne();
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat mengambil data!',
+        message: [error ?? 'Terjadi kesalahan saat mengambil data!'],
       });
     }
   }
@@ -78,7 +79,7 @@ export class CarouselService {
       return await this.carouselRepository.save(updateCarouselDto);
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!',
+        message: [error ?? 'Terjadi kesalahan saat menyimpan data!'],
       });
     }
   }
@@ -95,7 +96,7 @@ export class CarouselService {
       return this.carouselRepository.remove(carousel);
     } catch (error) {
       throw new NotFoundException({
-        message: 'Terjadi kesalahan saat menghapus data!',
+        message: [error ?? 'Terjadi kesalahan saat menghapus data!'],
       });
     }
   }
@@ -113,8 +114,9 @@ export class CarouselService {
       );
       return this.carouselRepository.remove(carousel);
     } catch (error) {
+      // throw new InternalServerErrorException();
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menghapus data!',
+        message: [error ?? 'Terjadi kesalahan saat menghapus data!'],
       });
     }
   }

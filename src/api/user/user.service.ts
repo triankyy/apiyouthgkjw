@@ -12,11 +12,12 @@ export class UserService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(Role) private readonly roleRepository: Repository<Role>,
-    @InjectRepository(Wilayah) private readonly wilayahRepository: Repository<Wilayah>
+    @InjectRepository(Wilayah)
+    private readonly wilayahRepository: Repository<Wilayah>,
   ) {}
 
   /**
-   * create
+   * create user service
    */
   public async create(createUserDto: CreateUserDto) {
     try {
@@ -26,22 +27,30 @@ export class UserService {
         createUserDto.password = this.hashPassword(createUserDto.password);
       }
       //get data roles untuk ditambahkan ke user
-      const roles = await this.roleRepository.findBy({id: In(createUserDto.roles)});
+      const roles = await this.roleRepository.findBy({
+        id: In(createUserDto.roles),
+      });
 
       //get data wilayah untuk ditambahkan ke user
-      const wilayah: Wilayah = await this.wilayahRepository.findOneBy({id: createUserDto.wilayah})
+      const wilayah: Wilayah = await this.wilayahRepository.findOneBy({
+        id: createUserDto.wilayah,
+      });
 
       //simpan data user ke database beserta relasi tabel role
-      return await this.userRepository.save({ ...createUserDto, roles, wilayah }); //TODO: add user roles as array :)
+      return await this.userRepository.save({
+        ...createUserDto,
+        roles,
+        wilayah,
+      }); //TODO: add user roles as array :)
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!',
+        message: [error ?? 'Terjadi kesalahan saat menyimpan data!'],
       });
     }
   }
 
   /**
-   * findAll
+   * get semua data user
    */
   public async findAll(): Promise<User[]> {
     try {
@@ -49,13 +58,13 @@ export class UserService {
       return await this.userRepository.find({ relations: { roles: true } });
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat mengambil data!',
+        message: [error ?? 'Terjadi kesalahan saat mengambil data!'],
       });
     }
   }
 
   /**
-   * findOne
+   * get data user
    */
   public async findOne(id: number): Promise<User> {
     try {
@@ -66,7 +75,7 @@ export class UserService {
       });
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat mengambil data!',
+        message: [error ?? 'Terjadi kesalahan saat mengambil data!'],
       });
     }
   }
@@ -86,12 +95,18 @@ export class UserService {
       });
 
       //get data wilayah untuk update data user
-      const wilayah: Wilayah = await this.wilayahRepository.findOneBy({id: updateUserDto.wilayah});
+      const wilayah: Wilayah = await this.wilayahRepository.findOneBy({
+        id: updateUserDto.wilayah,
+      });
 
-      return await this.userRepository.save({ ...updateUserDto, roles, wilayah }); //simpan data ke database
+      return await this.userRepository.save({
+        ...updateUserDto,
+        roles,
+        wilayah,
+      }); //simpan data ke database
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!',
+        message: [error ?? 'Terjadi kesalahan saat menyimpan data!'],
       });
     }
   }
@@ -108,7 +123,7 @@ export class UserService {
       });
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat mengambil data!',
+        message: [error ?? 'Terjadi kesalahan saat mengambil data!'],
       });
     }
   }
@@ -120,10 +135,11 @@ export class UserService {
     try {
       //cari data user
       const user: User = await this.userRepository.findOneBy({ id });
+      if (!user) throw user;
       return this.userRepository.remove(user); //hapus data dari database
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menghapus data!',
+        message: [error ?? 'Terjadi kesalahan saat menghapus data!'],
       });
     }
   }
@@ -138,7 +154,7 @@ export class UserService {
       return this.userRepository.remove(user); //hapus data dari database
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menghapus data!',
+        message: [error ?? 'Terjadi kesalahan saat menghapus data!'],
       });
     }
   }

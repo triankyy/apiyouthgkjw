@@ -57,7 +57,7 @@ export class JadwalPelayanService {
       });
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!',
+        message: [error ?? 'Terjadi kesalahan saat menyimpan data!'],
       });
     }
   }
@@ -76,7 +76,7 @@ export class JadwalPelayanService {
       });
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat mengambil data!',
+        message: [error ?? 'Terjadi kesalahan saat mengambil data!'],
       });
     }
   }
@@ -95,7 +95,7 @@ export class JadwalPelayanService {
       });
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat mengambil data!',
+        message: [error ?? 'Terjadi kesalahan saat mengambil data!'],
       });
     }
   }
@@ -113,7 +113,7 @@ export class JadwalPelayanService {
       return await this.jadwalRepository.findOneBy({ id });
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat mengambil data!',
+        message: [error ?? 'Terjadi kesalahan saat mengambil data!'],
       });
     }
   }

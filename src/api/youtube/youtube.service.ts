@@ -18,7 +18,7 @@ export class YoutubeService {
       return await this.youtubeRepository.save(createYoutubeDto);
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!',
+        message: [error ?? 'Terjadi kesalahan saat menyimpan data!'],
       });
     }
   }
@@ -39,7 +39,7 @@ export class YoutubeService {
       return result;
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat mengambil data!',
+        message: [error ?? 'Terjadi kesalahan saat mengambil data!'],
       });
     }
   }
@@ -55,7 +55,7 @@ export class YoutubeService {
       return { ...youtube, ...yt };
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat mengambil data!',
+        message: [error ?? 'Terjadi kesalahan saat mengambil data!'],
       });
     }
   }
@@ -69,7 +69,7 @@ export class YoutubeService {
       return await this.youtubeRepository.save(updateYoutubeDto);
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!',
+        message: [error ?? 'Terjadi kesalahan saat menyimpan data!'],
       });
     }
   }
@@ -82,7 +82,7 @@ export class YoutubeService {
       return this.youtubeRepository.remove(youtube);
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menghapus data!',
+        message: [error ?? 'Terjadi kesalahan saat menghapus data!'],
       });
     }
   }

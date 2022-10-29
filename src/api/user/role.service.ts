@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { CreateUserRoleDto, UpdateUserRoleDto } from './dto/role.dto';
@@ -14,11 +18,12 @@ export class RoleService {
    * create
    */
   public async create(createUserRoleDto: CreateUserRoleDto): Promise<Role> {
+    // throw new BadRequestException((val) => [...val]);
     try {
       return await this.roleRepository.save(createUserRoleDto); //save data ke database
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!',
+        message: [error ?? 'Terjadi kesalahan saat menyimpan data!'],
       });
     }
   }
@@ -31,7 +36,7 @@ export class RoleService {
       return await this.roleRepository.find(); //get data dari database
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!',
+        message: [error ?? 'Terjadi kesalahan saat mengambil data!'],
       });
     }
   }
@@ -44,7 +49,7 @@ export class RoleService {
       return await this.roleRepository.findOneBy({ id }); //get data dari database
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!',
+        message: [error ?? 'Terjadi kesalahan saat mengambil data!'],
       });
     }
   }
@@ -61,7 +66,7 @@ export class RoleService {
       return await this.roleRepository.save(updateUserRoleDto); //simpan data ke database
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!',
+        message: [error ?? 'Terjadi kesalahan saat menyimpan data!'],
       });
     }
   }
@@ -75,7 +80,7 @@ export class RoleService {
       return await this.roleRepository.remove(role); //hapus data dari database
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!',
+        message: [error ?? 'Terjadi kesalahan saat menghapus data!'],
       });
     }
   }
@@ -89,7 +94,7 @@ export class RoleService {
       return await this.roleRepository.remove(roles); //hapus data dari database
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!',
+        message: [error ?? 'Terjadi kesalahan saat menghapus data!'],
       });
     }
   }

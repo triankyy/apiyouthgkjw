@@ -20,7 +20,7 @@ export class IbadahService {
       return await this.ibadahRepository.save(createIbadahDto);
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!',
+        message: [error ?? 'Terjadi kesalahan saat menyimpan data!'],
       });
     }
   }
@@ -33,7 +33,7 @@ export class IbadahService {
       return await this.ibadahRepository.findOneBy({ id });
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat mengambil data!',
+        message: [error ?? 'Terjadi kesalahan saat mengambil data!'],
       });
     }
   }
@@ -46,7 +46,7 @@ export class IbadahService {
       return await this.ibadahRepository.find();
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat mengambil data!',
+        message: [error ?? 'Terjadi kesalahan saat mengambil data!'],
       });
     }
   }
@@ -60,7 +60,7 @@ export class IbadahService {
       return await this.ibadahRepository.save(updateIbadahDto);
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!',
+        message: [error ?? 'Terjadi kesalahan saat menyimpan data!'],
       });
     }
   }
@@ -74,7 +74,7 @@ export class IbadahService {
       return await this.ibadahRepository.remove(ibadah);
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menghapus data!',
+        message: [error ?? 'Terjadi kesalahan saat menghapus data!'],
       });
     }
   }
@@ -90,7 +90,7 @@ export class IbadahService {
       return await this.ibadahRepository.remove(ibadah);
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menghapus data!',
+        message: [error ?? 'Terjadi kesalahan saat menghapus data!'],
       });
     }
   }

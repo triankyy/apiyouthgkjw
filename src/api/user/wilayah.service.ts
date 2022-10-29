@@ -6,7 +6,10 @@ import { Wilayah } from './entities/wilayah.entity';
 
 @Injectable()
 export class WilayahService {
-  constructor(@InjectRepository(Wilayah) private readonly wilayahRepository: Repository<Wilayah>) {}
+  constructor(
+    @InjectRepository(Wilayah)
+    private readonly wilayahRepository: Repository<Wilayah>,
+  ) {}
 
   /**
    * create
@@ -16,8 +19,8 @@ export class WilayahService {
       return await this.wilayahRepository.save(createWilayahDto);
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!'
-      })
+        message: [error ?? 'Terjadi kesalahan saat menyimpan data!'],
+      });
     }
   }
 
@@ -29,7 +32,7 @@ export class WilayahService {
       return await this.wilayahRepository.find();
     } catch (error) {
       throw new BadRequestException({
-        message: 'terjadi kesalahan saat mengambil data!'
+        message: [error ?? 'terjadi kesalahan saat mengambil data!'],
       });
     }
   }
@@ -39,10 +42,10 @@ export class WilayahService {
    */
   public async findOne(id: number) {
     try {
-      return await this.wilayahRepository.findOneBy({id});
+      return await this.wilayahRepository.findOneBy({ id });
     } catch (error) {
       throw new BadRequestException({
-        message: 'terjadi kesalahan saat mengambil data!'
+        message: [error ?? 'terjadi kesalahan saat mengambil data!'],
       });
     }
   }
@@ -52,12 +55,12 @@ export class WilayahService {
    */
   public async update(id: number, updateWilayahDto: UpdateWilayahDto) {
     try {
-      updateWilayahDto.id = id
+      updateWilayahDto.id = id;
       return await this.wilayahRepository.save(updateWilayahDto);
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menyimpan data!'
-      })
+        message: [error ?? 'Terjadi kesalahan saat menyimpan data!'],
+      });
     }
   }
 
@@ -66,12 +69,12 @@ export class WilayahService {
    */
   public async remove(id: number) {
     try {
-      const wilayah: Wilayah = await this.wilayahRepository.findOneBy({id})
+      const wilayah: Wilayah = await this.wilayahRepository.findOneBy({ id });
       return await this.wilayahRepository.remove(wilayah);
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menghapus data!'
-      })
+        message: [error ?? 'Terjadi kesalahan saat menghapus data!'],
+      });
     }
   }
 
@@ -80,12 +83,14 @@ export class WilayahService {
    */
   public async removeMany(ids: number[]) {
     try {
-      const wilayah: Wilayah[] = await this.wilayahRepository.findBy({id: In(ids)});
+      const wilayah: Wilayah[] = await this.wilayahRepository.findBy({
+        id: In(ids),
+      });
       return await this.wilayahRepository.remove(wilayah);
     } catch (error) {
       throw new BadRequestException({
-        message: 'Terjadi kesalahan saat menghapus data!'
-      })
+        message: [error ?? 'Terjadi kesalahan saat menghapus data!'],
+      });
     }
   }
 }
